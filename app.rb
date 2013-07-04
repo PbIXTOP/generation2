@@ -155,14 +155,6 @@ post '/refresh' do
   end
 end
 
-post '/validate' do
-  puts request.body.read
-end
-
-post '/signout' do
-  puts request.body.read
-end
-
 get '/session/joinserver' do
   got = parse_params(request.query_string)
   join = JoinData.new
@@ -192,7 +184,8 @@ get '/session/checkserver' do
 end
 
 get '/register/:mail/:name/:password/:registerpassword' do
-  if params[:registerpassword] == registerpassword
+  users = User.where(:mail => params[:mail])
+  if params[:registerpassword] == registerpassword && !users
     user = User.new
     user.mail = params[:mail]
     hash = generate_token(params[:mail])
