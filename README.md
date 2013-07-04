@@ -1,19 +1,19 @@
 generation2
 ===========
 
-generation2 - Minecraft Authorization Server
+generation2 - Сервер авторизации minecraft
 
-### Installation
+### Установка
 
 	gem install bundler
 
 	bundle install
 
-Then setup variables in app.rb
+Затем настройте переменные в app.rb
 
-After it, import sql-file to database
+После этого, залейте sql в базу
 
-Run:
+Запуск:
 
 	ruby app.rb
 
