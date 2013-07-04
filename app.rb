@@ -10,8 +10,8 @@ require './inc'
 # Change it!
 set :port, 80
 set :bind, '192.168.0.100'
-# Token lifetime in days
-token_lifetime = 10;
+# Password for registration
+registerpassword = "passWd123"
 
 DB = Sequel.connect('mysql2://root:password@localhost/generation2')
 class User < Sequel::Model(:users)
@@ -191,19 +191,21 @@ get '/session/checkserver' do
   end
 end
 
-get '/register/:mail/:name/:password' do
-  user = User.new
-  user.mail = params[:mail]
-  hash = generate_token(params[:mail])
-  user.hashid = hash
-  user.password = passhash(params[:password])
-  user.save
-  profile = Profile.new
-  profile.username = params[:name]
-  profile.userid = hash
-  profile.hashid = generate_token(params[:name])
-  profile.save
-  "Done"
+get '/register/:mail/:name/:password/:registerpassword' do
+  if params[:registerpassword] == registerpassword
+    user = User.new
+    user.mail = params[:mail]
+    hash = generate_token(params[:mail])
+    user.hashid = hash
+    user.password = passhash(params[:password])
+    user.save
+    profile = Profile.new
+    profile.username = params[:name]
+    profile.userid = hash
+    profile.hashid = generate_token(params[:name])
+    profile.save
+    "Done"
+  end
 end
 
 not_found do
