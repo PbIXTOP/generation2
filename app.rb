@@ -1,6 +1,7 @@
 # generation2
 # by Andrey Viktorov
 # http://tehead.ru
+require 'rubygems'
 require 'sinatra'
 require 'json'
 require 'digest/md5'
